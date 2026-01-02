@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/movies")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200") // Angular default port
 public class MovieController {
 
     private final MovieService movieService;
