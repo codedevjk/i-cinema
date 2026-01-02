@@ -77,3 +77,13 @@ CREATE TABLE IF NOT EXISTS payments (
     masked_card_number VARCHAR(20),
     FOREIGN KEY (booking_id) REFERENCES bookings(id)
 );
+
+CREATE TABLE IF NOT EXISTS ratings (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    movie_id BIGINT NOT NULL,
+    rating INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (movie_id) REFERENCES movies(id),
+    UNIQUE (user_id, movie_id)
+);

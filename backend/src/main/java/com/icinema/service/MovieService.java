@@ -11,5 +11,7 @@ public interface MovieService {
     MovieDTO getMovieById(Long id);
 
     // US 10: Update rating
-    MovieDTO rateMovie(Long movieId, Integer rating);
+    MovieDTO rateMovie(Long movieId, Long userId, Integer rating);
+
+    Integer getUserRating(Long movieId, Long userId);
 }

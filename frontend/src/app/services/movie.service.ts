@@ -34,8 +34,15 @@ export class MovieService {
     return this.http.get<Movie>(`${this.apiUrl}/${id}`);
   }
 
-  rateMovie(id: number, rating: number): Observable<Movie> {
-    const params = new HttpParams().set('rating', rating);
+  rateMovie(id: number, userId: number, rating: number): Observable<Movie> {
+    const params = new HttpParams()
+      .set('userId', userId)
+      .set('rating', rating);
     return this.http.post<Movie>(`${this.apiUrl}/${id}/rate`, {}, { params });
+  }
+
+  getUserRating(id: number, userId: number): Observable<number | null> {
+    const params = new HttpParams().set('userId', userId);
+    return this.http.get<number | null>(`${this.apiUrl}/${id}/user-rating`, { params });
   }
 }

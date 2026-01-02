@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 public class MovieServiceImpl implements MovieService {
 
     private final MovieRepository movieRepository;
+    private final com.icinema.repository.UserRepository userRepository;
+    private final com.icinema.repository.RatingRepository ratingRepository;
     private final ModelMapper modelMapper;
 
     @Override
@@ -46,10 +48,26 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public MovieDTO rateMovie(Long movieId, Integer rating) {
-        log.info("Rating movie id: {} with {} stars", movieId, rating);
+    public MovieDTO rateMovie(Long movieId, Long userId, Integer rating) {
+        log.info("User {} rating movie {} with {} stars", userId, movieId, rating);
+
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new ResourceNotFoundException("Movie not found"));
+
+        com.icinema.entity.User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        if (ratingRepository.findByUserIdAndMovieId(userId, movieId).isPresent()) {
+            throw new IllegalArgumentException("User has already rated this movie.");
+        }
+
+        // Save new Rating
+        com.icinema.entity.Rating newRating = com.icinema.entity.Rating.builder()
+                .movie(movie)
+                .user(user)
+                .rating(rating)
+                .build();
+        ratingRepository.save(newRating);
 
         // Update average rating logic
         // Current Average = (OldAvg * OldCount + NewRating) / (OldCount + 1)
@@ -65,5 +83,12 @@ public class MovieServiceImpl implements MovieService {
 
         Movie savedMovie = movieRepository.save(movie);
         return modelMapper.map(savedMovie, MovieDTO.class);
+    }
+
+    @Override
+    public Integer getUserRating(Long movieId, Long userId) {
+        return ratingRepository.findByUserIdAndMovieId(userId, movieId)
+                .map(com.icinema.entity.Rating::getRating)
+                .orElse(null);
     }
 }

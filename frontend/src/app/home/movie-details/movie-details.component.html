@@ -74,7 +74,16 @@
         <!-- Rating Section -->
         <div class="rating-card mb-5">
           <h5 class="text-white fw-bold mb-3">Rate this movie</h5>
-          <div class="d-flex gap-3 align-items-center">
+          
+          <div *ngIf="hasRated" class="alert alert-success d-flex align-items-center mb-0">
+             <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+             <div>
+               <strong>You have already rated this movie!</strong>
+               <span class="d-block small">Thank you for your feedback.</span>
+             </div>
+          </div>
+
+          <div class="d-flex gap-3 align-items-center" *ngIf="!hasRated">
              <input type="number" class="form-control form-control-dark" style="width: 100px;" 
                     placeholder="1-10" min="1" max="10" step="0.5" 
                     [(ngModel)]="selectedRating">

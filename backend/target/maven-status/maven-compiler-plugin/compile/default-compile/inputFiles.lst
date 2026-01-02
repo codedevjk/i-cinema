@@ -14,6 +14,7 @@ C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\dto\U
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\entity\Booking.java
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\entity\Movie.java
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\entity\Payment.java
+C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\entity\Rating.java
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\entity\Seat.java
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\entity\Show.java
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\entity\Theatre.java
@@ -29,6 +30,7 @@ C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\Icine
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\repository\BookingRepository.java
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\repository\MovieRepository.java
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\repository\PaymentRepository.java
+C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\repository\RatingRepository.java
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\repository\SeatRepository.java
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\repository\ShowRepository.java
 C:\Users\jagmo\OneDrive\Desktop\I-Cinema\backend\src\main\java\com\icinema\repository\TheatreRepository.java

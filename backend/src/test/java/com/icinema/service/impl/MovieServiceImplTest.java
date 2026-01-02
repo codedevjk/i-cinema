@@ -24,6 +24,12 @@ class MovieServiceImplTest {
     private MovieRepository movieRepository;
 
     @Mock
+    private com.icinema.repository.UserRepository userRepository;
+
+    @Mock
+    private com.icinema.repository.RatingRepository ratingRepository;
+
+    @Mock
     private ModelMapper modelMapper;
 
     @InjectMocks
@@ -33,6 +39,7 @@ class MovieServiceImplTest {
     void rateMovie_ShouldCalculateAverageCorrectly_FirstVote() {
         // Arrange
         Long movieId = 1L;
+        Long userId = 100L;
         Integer newRating = 5;
 
         // Movie with no prior ratings
@@ -43,10 +50,14 @@ class MovieServiceImplTest {
                 .totalVotes(0)
                 .build();
 
-        // Check for null safety - simulate DB entity potentially having null
-        existingMovie.setRating(null); // Or 0.0
+        // Mock User
+        com.icinema.entity.User user = new com.icinema.entity.User();
+        user.setId(userId);
 
         when(movieRepository.findById(movieId)).thenReturn(Optional.of(existingMovie));
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(ratingRepository.findByUserIdAndMovieId(userId, movieId)).thenReturn(Optional.empty());
+
         when(movieRepository.save(any(Movie.class))).thenAnswer(invocation -> invocation.getArgument(0));
         when(modelMapper.map(any(Movie.class), eq(MovieDTO.class))).thenAnswer(invocation -> {
             Movie m = invocation.getArgument(0);
@@ -58,7 +69,7 @@ class MovieServiceImplTest {
         });
 
         // Act
-        MovieDTO result = movieService.rateMovie(movieId, newRating);
+        MovieDTO result = movieService.rateMovie(movieId, userId, newRating);
 
         // Assert
         Assertions.assertEquals(5.0, result.getRating());
@@ -69,6 +80,7 @@ class MovieServiceImplTest {
     void rateMovie_ShouldUpdateAverageCorrectly_SubsequentVote() {
         // Arrange
         Long movieId = 1L;
+        Long userId = 101L;
         Integer newRating = 4; // Adding a 4-star rating
 
         // Existing: Average 5.0 from 1 vote
@@ -79,7 +91,14 @@ class MovieServiceImplTest {
                 .totalVotes(1)
                 .build();
 
+        // Mock User
+        com.icinema.entity.User user = new com.icinema.entity.User();
+        user.setId(userId);
+
         when(movieRepository.findById(movieId)).thenReturn(Optional.of(existingMovie));
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(ratingRepository.findByUserIdAndMovieId(userId, movieId)).thenReturn(Optional.empty());
+
         when(movieRepository.save(any(Movie.class))).thenAnswer(invocation -> invocation.getArgument(0));
         when(modelMapper.map(any(Movie.class), eq(MovieDTO.class))).thenAnswer(invocation -> {
             Movie m = invocation.getArgument(0);
@@ -91,7 +110,7 @@ class MovieServiceImplTest {
         });
 
         // Act
-        MovieDTO result = movieService.rateMovie(movieId, newRating);
+        MovieDTO result = movieService.rateMovie(movieId, userId, newRating);
 
         // Assert
         // New Average = (5.0 * 1 + 4) / 2 = 9 / 2 = 4.5
