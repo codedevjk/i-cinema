@@ -1,3 +1,15 @@
+-- Clean up existing data to prevent duplicates on restart
+SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE ratings;
+TRUNCATE TABLE payments;
+TRUNCATE TABLE seats;
+TRUNCATE TABLE bookings;
+TRUNCATE TABLE shows;
+TRUNCATE TABLE theatres;
+TRUNCATE TABLE movies;
+TRUNCATE TABLE users;
+SET FOREIGN_KEY_CHECKS = 1;
+
 INSERT INTO movies (title, image_url, genre, language, description, duration_in_minutes, rating, censor_rating, total_votes) VALUES
 
 -- A mix of 2024/2025 Blockbusters and Classic Favorites
@@ -48,6 +60,8 @@ INSERT INTO theatres (name, location, city) VALUES
 ('INOX: Mall of Mysuru', 'MG Road, Mysuru', 'Mysuru'),
 ('PVR: Garuda Mall', 'Albert Victor Road, Mysuru', 'Mysuru');
 
+
+
 -- 3. RANDOMIZED SHOW GENERATION (Varied 2-5 shows/day for Today, +1, +2)
 -- Generates a mix of morning, afternoon, and evening slots dynamically.
 INSERT INTO shows (movie_id, theatre_id, show_date, show_time)
@@ -84,6 +98,8 @@ WHERE
         -- Day After (Day 3): Low density (5-20% chance -> 0-2 shows)
         (d.day_num = 3 AND (m.id * 7 + t.id * 3 + s.slot_id * 11) % 100 < 15)
     );
+
+
 
 -- 4. INITIALIZE SEATS (Removed to allow Dynamic Backend Generation with Random Occupancy)
 -- The backend ShowServiceImpl will now automatically generate 100 seats 

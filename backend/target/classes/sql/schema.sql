@@ -1,6 +1,6 @@
-Drop database icinemadb;
-CREATE DATABASE icinemadb;
-Use icinemadb;
+-- Database creation handled by connection string
+-- Tables will be created in the 'test' database (or whatever is in application.properties)
+
 
 
 CREATE TABLE IF NOT EXISTS users (
