@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://YOUR_BACKEND_URL.onrender.com/api'
+  apiUrl: 'https://icinema-backend-6s6j.onrender.com/api'
 };
