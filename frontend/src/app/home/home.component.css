@@ -1,0 +1,126 @@
+.home-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #080808; /* Fallback */
+    z-index: -1;
+}
+
+/* Hero Section */
+.hero-section {
+    height: 60vh;
+    background: linear-gradient(to bottom, rgba(8, 8, 8, 0.6), #080808 100%), 
+                url('../../assets/background.jpg') no-repeat center center;
+    background-size: cover;
+    background-color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Dimming */
+    backdrop-filter: blur(2px);
+}
+
+.search-container .input-group-text {
+    border-radius: 30px 0 0 30px;
+}
+.search-container .form-control {
+    border-radius: 0 30px 30px 0;
+}
+
+/* Filters */
+.btn-filter {
+    background-color: #1a1a1a;
+    color: #888;
+    border: 1px solid #333;
+    transition: all 0.2s ease;
+}
+
+.btn-filter:hover {
+    background-color: #2a2a2a;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-filter.active {
+    background-color: #e50914; /* Cinema Red */
+    color: #fff;
+    border-color: #e50914;
+    box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+}
+
+/* Movie Card */
+.movie-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: transparent;
+    border-radius: 12px;
+}
+
+.movie-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+}
+
+.poster-container {
+    aspect-ratio: 2/3;
+    overflow: hidden;
+    position: relative;
+    background-color: #222;
+}
+
+.transition-img {
+    transition: transform 0.5s ease;
+}
+
+.movie-card:hover .transition-img {
+    transform: scale(1.05); /* Subtle zoom */
+}
+
+.movie-overlay {
+    background: linear-gradient(to top, #000 0%, rgba(0, 0, 0, 0.9) 30%, rgba(0, 0, 0, 0) 100%);
+    padding: 1.25rem !important;
+}
+
+.text-shadow {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.backdrop-blur {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+.animate-slide-down {
+    animation: fadeIn 0.8s ease-out forwards;
+    animation-delay: 0.1s;
+}
+
+.animate-slide-up {
+    animation: fadeIn 0.8s ease-out forwards;
+    animation-delay: 0.2s;
+}
+
+.animate-fade-in-item {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+}

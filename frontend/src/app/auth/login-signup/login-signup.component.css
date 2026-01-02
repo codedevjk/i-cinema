@@ -1,0 +1,25 @@
+/* Custom styles specific to this component if needed, 
+   but we are mostly using Bootstrap and global styles */
+
+.card {
+  background-color: #121212; /* Match global card theme */
+  border: 1px solid #333;
+}
+
+.btn-outline-secondary {
+  color: #ccc;
+  border-color: #666;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #333;
+  color: #fff;
+  border-color: #999;
+}
+
+input.form-control:focus {
+  background-color: #1a1a1a; /* Slightly lighter on focus */
+  color: #fff;
+  border-color: #e50914; /* Primary red highlight */
+  box-shadow: 0 0 0 0.25rem rgba(229, 9, 20, 0.25);
+}

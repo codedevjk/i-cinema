@@ -1,0 +1,167 @@
+/* Page Background */
+.movie-details-page {
+    background-color: #080808;
+    min-height: 100vh;
+    padding-bottom: 5rem;
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 20vh;
+    min-height: 300px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.hero-bg-container {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-bg-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px);
+    transform: scale(1.05); /* Prevent blur edges */
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #080808 0%, rgba(8, 8, 8, 0.8) 50%, rgba(8, 8, 8, 0.3) 100%);
+}
+
+.back-link-container {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    width: auto;
+    z-index: 20;
+    padding: 0;
+}
+
+/* Content Section (Overlapping) */
+.content-container {
+    position: relative;
+    z-index: 10;
+    margin-top: -120px; /* Overlap effect */
+    padding: 0 1rem;
+}
+
+/* Poster Card */
+.poster-card {
+    width: 260px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #000;
+}
+
+.poster-img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    display: block;
+}
+
+/* Movie Details */
+.movie-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+}
+
+.text-accent {
+    color: #e50914; /* Cinema Red */
+}
+
+.info-pill {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #ddd;
+}
+
+/* Rating Input */
+.rating-card {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-width: 400px;
+}
+
+.form-control-dark {
+    background-color: #000;
+    border: 1px solid #333;
+    color: #fff;
+}
+
+.form-control-dark:focus {
+    background-color: #000;
+    border-color: #e50914;
+    color: #fff;
+    box-shadow: none;
+}
+
+/* Animations */
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .content-container {
+        margin-top: -60px;
+    }
+    .poster-card {
+        width: 160px;
+        margin-bottom: 1.5rem;
+    }
+    .movie-title {
+        font-size: 2rem;
+    }
+    .hero-section {
+        height: 40vh;
+        min-height: 300px;
+    }
+}
+
+/* Toast Notification */
+.toast-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #1a1a1a;
+    color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    border: 1px solid #333;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    transform: translateY(100px); /* Initially hidden below screen */
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.toast-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}

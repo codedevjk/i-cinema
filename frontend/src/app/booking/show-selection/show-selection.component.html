@@ -1,0 +1,85 @@
+<div class="booking-container position-relative" *ngIf="movie; else loadingOrError">
+  
+  <div class="back-link-container">
+      <button class="btn btn-link text-white text-decoration-none p-0 d-flex align-items-center hover-white" routerLink="/home">
+        <i class="bi bi-arrow-left me-2 fs-4"></i> Back to Movies
+      </button>
+  </div>
+
+  <main class="container py-4 mt-5 pt-5"> <!-- Added pt-5 to push content further down to avoid overlap -->
+ <!-- add a spacing between the hero section and the movie info card  -->
+  <div class="mb-5 animate-fade-in" style="animation-delay: 0.1s;"></div>
+
+    <!-- Movie Info Card -->
+    <div class="movie-info-card d-flex align-items-center gap-2 mb-5 animate-fade-in">
+        <img [src]="movie.imageUrl || 'assets/placeholder.jpg'" [alt]="movieTitle" class="poster-thumb shadow-sm"
+             onerror="this.onerror=null; this.src='assets/placeholder.jpg'">
+        <div>
+            <h1 class="h3 fw-bold mb-1">{{ movieTitle }}</h1>
+            <p class="text-secondary mb-0 small text-uppercase fw-medium">{{ movieMeta }}</p>
+        </div>
+    </div>
+
+    <!-- Date Strip -->
+    <div class="mb-5 animate-fade-in" style="animation-delay: 0.1s;">
+        <h2 class="h5 fw-bold mb-3">Select Date</h2>
+        <div class="d-flex gap-2 overflow-auto pb-2 date-strip">
+            <button *ngFor="let date of availableDates" 
+                    (click)="onSelectDate(date)"
+                    class="date-card" 
+                    [class.active]="date.isSelected">
+                <span class="date-weekday">{{ date.dayName }}</span>
+                <span class="date-day">{{ date.dayNumber }}</span>
+                <span class="date-month">{{ date.month }}</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Theatres List -->
+    <div class="animate-fade-in" style="animation-delay: 0.2s;">
+        <h2 class="h5 fw-bold mb-3">Available Theatres</h2>
+
+        <div *ngIf="theatres.length > 0; else noTheatres">
+            <div *ngFor="let theatre of theatres" class="theatre-card">
+                <div class="mb-3">
+                    <h3 class="h5 fw-bold mb-1">{{ theatre.name }}</h3>
+                    <p class="small text-secondary mb-0 d-flex align-items-center gap-1">
+                        <i class="bi bi-geo-alt-fill text-danger"></i> {{ theatre.location }}
+                    </p>
+                </div>
+
+                <div class="d-flex flex-wrap gap-3">
+                    <button *ngFor="let show of theatre.showTimes" 
+                            (click)="bookShow(show.id)"
+                            class="show-btn d-flex align-items-center gap-2">
+                        <i class="bi bi-clock text-secondary show-icon"></i>
+                        <span class="show-time">{{ show.time }}</span>
+                        <span class="show-price ms-1">₹{{ show.price }}</span>
+                    </button>
+                </div>
+                
+                <p class="small text-secondary mt-3 mb-0 opacity-75">
+                    <i class="bi bi-info-circle me-1"></i> {{ theatre.availabilityNote }}
+                </p>
+            </div>
+        </div>
+
+        <ng-template #noTheatres>
+            <div class="text-center py-5 border border-secondary border-opacity-25 rounded-3 bg-dark-soft text-secondary">
+                <i class="bi bi-calendar-x display-1 mb-3 opacity-50"></i>
+                <p class="h5">No shows available for this date.</p>
+                <p class="small">Try selecting another date.</p>
+            </div>
+        </ng-template>
+    </div>
+
+  </main>
+</div>
+
+<!-- Loading / Error State -->
+<ng-template #loadingOrError>
+    <div class="movie-not-found">
+        <h1 class="h3 fw-bold mb-3">Movie not found</h1>
+        <button class="btn btn-primary" routerLink="/home">Go back home</button>
+    </div>
+</ng-template>

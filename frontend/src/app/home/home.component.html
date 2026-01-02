@@ -1,0 +1,136 @@
+<div class="home-background"></div>
+
+<app-header (onSearch)="handleSearch($event)"></app-header>
+
+<!-- Hero Section -->
+<div class="hero-section position-relative mb-5" style="margin-top: 64px;">
+  <div class="hero-overlay d-flex align-items-center justify-content-center text-center">
+    <div class="container" style="z-index: 2;">
+      <h1 class="display-3 fw-bold text-white mb-3 animate-slide-down">Welcome to I-Cinema</h1>
+      <p class="lead text-light mb-4 animate-slide-up">Experience the magic of movies with premium booking.</p>
+    </div>
+  </div>
+</div>
+<div class="container position-relative pb-5">
+
+  <!-- Header & Count -->
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="text-white fw-bold">Now Showing</h2>
+      <p class="text-secondary mb-0" *ngIf="movies.length > 0">
+        {{ filteredMovies.length }} movies available
+      </p>
+    </div>
+  </div>
+
+  <!-- Filters Section (Dropdowns) -->
+  <div class="filters-container mb-5 d-flex flex-wrap gap-2 align-items-center">
+    
+    <!-- Genre Dropdown -->
+    <div class="dropdown">
+      <button class="btn btn-outline-light rounded-pill dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ selectedGenres.length > 0 ? selectedGenres.length + ' Genres' : 'Genre' }}
+      </button>
+      <ul class="dropdown-menu dropdown-menu-dark p-2" style="min-width: 250px;">
+        <li *ngFor="let g of genres">
+          <div class="dropdown-item d-flex align-items-center gap-2 rounded-2" (click)="$event.stopPropagation(); handleGenreChange(g)">
+            <input type="checkbox" class="form-check-input mt-0" [checked]="selectedGenres.includes(g)">
+            <span [class.fw-bold]="selectedGenres.includes(g)">{{ g | titlecase }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Language Dropdown -->
+    <div class="dropdown">
+      <button class="btn btn-outline-light rounded-pill dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ selectedLanguages.length > 0 ? selectedLanguages.length + ' Languages' : 'Language' }}
+      </button>
+      <ul class="dropdown-menu dropdown-menu-dark p-2" style="min-width: 200px;">
+        <li *ngFor="let l of languages">
+          <div class="dropdown-item d-flex align-items-center gap-2 rounded-2" (click)="$event.stopPropagation(); handleLanguageChange(l)">
+             <input type="checkbox" class="form-check-input mt-0" [checked]="selectedLanguages.includes(l)">
+             <span>{{ l | titlecase }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Rating Dropdown -->
+    <div class="dropdown">
+      <button class="btn btn-outline-light rounded-pill dropdown-toggle px-3" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        {{ selectedRating ? 'Rating: ' + selectedRating : 'Rating' }}
+      </button>
+      <ul class="dropdown-menu dropdown-menu-dark p-2">
+        <li *ngFor="let r of ratings">
+          <button class="dropdown-item rounded-2" [class.active]="selectedRating === r" (click)="handleRatingChange(selectedRating === r ? null : r)">
+            <i class="bi bi-star-fill text-warning me-1 small"></i> {{ r }}
+          </button>
+        </li>
+      </ul>
+    </div>
+
+     <!-- Clear Filters Link (Keep here for quick access) -->
+     <button *ngIf="selectedGenres.length > 0 || selectedLanguages.length > 0 || selectedRating" 
+             class="btn btn-link text-danger text-decoration-none ms-auto" 
+             (click)="handleClearAll()">
+       Clear all
+     </button>
+
+  </div>
+
+  <!-- Movie Grid -->
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+    <div class="col animate-fade-in-item" *ngFor="let movie of filteredMovies; let i = index" 
+         [style.animation-delay]="i * 50 + 'ms'">
+      <div class="card h-100 border-0 movie-card position-relative overflow-hidden rounded-4 cursor-pointer"
+        (click)="navigateToDetails(movie.id)">
+
+        <!-- Poster Area -->
+        <div class="poster-container position-relative w-100 h-100">
+          <img [src]="movie.imageUrl || 'assets/placeholder.jpg'" [alt]="movie.title"
+             class="w-100 h-100 object-fit-cover transition-img" loading="lazy"
+             onerror="this.onerror=null; this.src='assets/placeholder.jpg'">
+
+          <!-- Top Right Rating -->
+          <div class="position-absolute top-0 end-0 p-3">
+            <span class="badge bg-black bg-opacity-75 text-warning px-2 py-1 rounded-3 border border-dark border-opacity-25 shadow-sm d-flex align-items-center gap-1">
+              <i class="bi bi-star-fill text-warning" style="font-size: 0.8rem;"></i> 
+              <span class="text-white fw-bold">{{ movie.rating | number:'1.1-1' }}/10</span>
+            </span>
+          </div>
+
+          <!-- Bottom Gradient Overlay -->
+          <div class="position-absolute bottom-0 start-0 w-100 p-3 d-flex flex-column justify-content-end movie-overlay">
+            
+            <!-- Title -->
+            <h5 class="fw-bold mb-1 text-white text-shadow text-truncate">{{ movie.title }}</h5>
+            <small class="text-white-50 mb-2 d-block">{{ movie.language | titlecase }} • {{ movie.genre | titlecase }}</small>
+
+            <!-- Metadata -->
+            <div class="d-flex justify-content-between align-items-center mt-1">
+               <span class="badge bg-white bg-opacity-10 backdrop-blur fw-normal border border-white border-opacity-25 text-white">{{ movie.censorRating || 'UA' }}</span>
+               <small class="text-white-50">{{ formatDuration(movie.durationInMinutes!) }}</small>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="col-12 text-center py-5" *ngIf="filteredMovies.length === 0">
+      <h4 class="text-muted">No movies found matching your criteria</h4>
+      <button class="btn btn-primary mt-3 px-4 rounded-pill" (click)="handleClearAll()">Clear All Filters</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- Simple Footer -->
+<footer class="border-top border-dark py-5 mt-5 bg-black">
+  <div class="container text-center text-secondary">
+    <p class="mb-1">&copy; 2024 I-Cinema. All rights reserved.</p>
+    <small>Experience the magic of movies.</small>
+  </div>
+</footer>

@@ -1,0 +1,28 @@
+.glass-header {
+  height: 64px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 1050;
+}
+
+.logo-box {
+  width: 40px; 
+  height: 40px;
+  transition: box-shadow 0.3s ease;
+}
+
+.group:hover .logo-box {
+  box-shadow: 0 0 20px rgba(220, 53, 69, 0.5);
+}
+
+.form-control:focus {
+  background-color: #212529; /* Darker bg on focus */
+  color: white;
+  border-color: rgba(220, 53, 69, 0.5); /* Primary color border */
+  box-shadow: none;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,66 @@
+<header class="fixed-top glass-header border-bottom border-secondary border-opacity-25">
+  <div class="container h-100 d-flex align-items-center justify-content-between">
+    
+    <!-- Logo -->
+    <a routerLink="/" class="d-flex align-items-center text-decoration-none group">
+      <div class="logo-box bg-danger rounded-3 d-flex align-items-center justify-content-center me-2">
+        <i class="bi bi-film text-white fs-5"></i>
+      </div>
+      <span class="fs-4 fw-bold text-white d-none d-sm-block">
+        I-<span class="text-danger">Cinema</span>
+      </span>
+    </a>
+
+    <!-- Search Bar -->
+    <form (submit)="handleSearch($event)" class="flex-grow-1 mx-3 mx-md-5" style="max-width: 400px;">
+      <div class="position-relative">
+        <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+        <input type="text" 
+               class="form-control bg-dark border-secondary text-white ps-5 rounded-pill focus-ring" 
+               placeholder="Search movies..." 
+               [(ngModel)]="searchQuery" 
+               name="search">
+      </div>
+    </form>
+
+    <!-- Nav Actions -->
+    <div class="d-flex align-items-center gap-3">
+      <a routerLink="/" class="btn btn-link text-secondary text-decoration-none d-none d-md-block">Movies</a>
+      
+      <div *ngIf="user; else loginBtn" class="dropdown">
+        <button class="btn btn-outline-secondary rounded-circle p-0 d-flex align-items-center justify-content-center" 
+                style="width: 40px; height: 40px;"
+                type="button" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false">
+          <div class="bg-danger bg-opacity-10 text-danger fw-bold rounded-circle w-100 h-100 d-flex align-items-center justify-content-center">
+            {{ initials }}
+          </div>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end bg-dark border-secondary">
+          <li>
+            <a class="dropdown-item text-light" routerLink="/home/profile">
+              <i class="bi bi-person me-2"></i> My Profile
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item text-light" routerLink="/home/bookings">
+              <i class="bi bi-ticket-perforated me-2"></i> My Bookings
+            </a>
+          </li>
+          <li><hr class="dropdown-divider bg-secondary"></li>
+          <li>
+            <button class="dropdown-item text-danger" (click)="logout()">
+              <i class="bi bi-box-arrow-right me-2"></i> Sign Out
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <ng-template #loginBtn>
+        <a routerLink="/auth" class="btn btn-danger rounded-pill px-4">Sign In</a>
+      </ng-template>
+    </div>
+
+  </div>
+</header>

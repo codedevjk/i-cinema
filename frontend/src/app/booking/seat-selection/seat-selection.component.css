@@ -1,0 +1,218 @@
+/* Base Layout */
+:host {
+    display: block;
+    background-color: #080808;
+    min-height: 100vh;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+}
+
+.container-fluid {
+    padding-bottom: 5rem;
+}
+
+/* Header */
+header {
+    background-color: #000;
+}
+
+/* Screen Visual */
+.screen-container {
+    perspective: 1000px;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.screen-glow {
+    width: 60%;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(229, 9, 20, 0.4), transparent);
+    box-shadow: 0 -20px 60px rgba(229, 9, 20, 0.2);
+    border-top: 4px solid #fff;
+    border-radius: 50% 50% 0 0 / 20px 20px 0 0;
+    transform: rotateX(-30deg) scale(0.8);
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.screen-text {
+    font-size: 0.8rem;
+    color: #666;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: -15px;
+}
+
+/* Legend */
+.seat-legend-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.legend-text {
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+/* Pricing Badges */
+.badge-price {
+    background: transparent;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    cursor: default;
+    transition: all 0.2s;
+}
+
+.badge-price:hover {
+    border-color: #e50914;
+    color: #fff;
+}
+
+/* Seat Matrix */
+.seat-matrix {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 2rem;
+}
+
+.seat-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.row-label {
+    width: 25px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #666;
+    text-align: center;
+}
+
+/* Seat Button Styles */
+.seat-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 8px; /* Slightly more rounded */
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 0;
+    color: #fff;
+}
+
+.seat-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+/* Seat Text (Number) */
+.seat-btn span {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+/* Legend Colors */
+.seat-legend-box.available { background-color: #28a745; }
+.seat-legend-box.selected { background-color: #ffc107; }
+.seat-legend-box.booked { background-color: #dc3545; }
+
+/* Status Colors */
+
+/* Available - Green */
+.seat-available {
+    background-color: #28a745; /* Bootstrap Success Green */
+    color: #fff;
+    border: 1px solid #1e7e34;
+}
+
+.seat-available:hover {
+    background-color: #1e7e34;
+    transform: scale(1.1);
+    box-shadow: 0 0 8px rgba(40, 167, 69, 0.4);
+}
+
+/* Selected - Yellow */
+.seat-selected {
+    background-color: #ffc107; /* Bootstrap Warning Yellow */
+    color: #000;
+    box-shadow: 0 0 12px rgba(255, 193, 7, 0.6);
+    border: 1px solid #ffc107;
+    transform: scale(1.15);
+    font-weight: 700;
+}
+
+/* Booked - Red */
+.seat-booked {
+    background-color: #dc3545; /* Bootstrap Danger Red */
+    color: #fff;
+    border: 1px solid #dc3545;
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Locked / Booked adjustments */
+.seat-booked span { opacity: 0.7; }
+
+/* Premium Seat Indicator (Subtle ring or specific style if needed, 
+   but for now handled by pricing logic/tooltips. 
+   Optionally add a specific border for H-J rows if desired) 
+*/
+
+/* Bottom Bar */
+.bottom-bar {
+    background-color: #121212;
+    border-top: 1px solid #333;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+.btn-proceed {
+    background-color: #e50914;
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+    transition: all 0.2s;
+}
+
+.btn-proceed:hover:not(:disabled) {
+    background-color: #f40612;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(229, 9, 20, 0.6);
+}
+
+.btn-proceed:disabled {
+    background-color: #333;
+    color: #666;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+/* Selection Summary */
+.selection-summary {
+    font-family: 'Outfit', sans-serif; /* If using custom font, otherwise inherit */
+}

@@ -1,0 +1,81 @@
+/* Dark Theme Base */
+.bg-black {
+    background-color: #080808 !important;
+}
+
+.text-white {
+    color: #fff !important;
+}
+
+.text-secondary {
+    color: #888 !important;
+}
+
+/* Cards */
+.payment-card, .summary-card {
+    background-color: #111;
+    border: 1px solid #222;
+    border-radius: 12px;
+}
+
+/* Inputs */
+.form-control.bg-dark {
+    background-color: #0b0b0b !important;
+    border-color: #222 !important;
+    color: #fff !important;
+    border-radius: 8px;
+}
+
+.form-control.bg-dark:focus {
+    border-color: #e50914 !important;
+    box-shadow: 0 0 0 0.2rem rgba(229, 9, 20, 0.25);
+}
+
+/* Radio Buttons */
+.custom-radio .form-check-input {
+    background-color: #0b0b0b;
+    border-color: #444;
+}
+
+.custom-radio .form-check-input:checked {
+    background-color: #e50914;
+    border-color: #e50914;
+}
+
+.custom-radio .form-check-label {
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+/* Pay Button */
+.btn-pay {
+    background-color: #e50914; /* Cinema Red */
+    border: none;
+    color: white;
+    border-radius: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.4);
+}
+
+.btn-pay:hover:not(:disabled) {
+    background-color: #ff1f2a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(229, 9, 20, 0.5);
+    color: white;
+}
+
+.btn-pay:disabled {
+    background-color: #333;
+    color: #666;
+    box-shadow: none;
+}
+
+/* Hover effects */
+.hover-white:hover {
+    color: #fff !important;
+}
+
+/* Borders */
+.border-dark {
+    border-color: #222 !important;
+}

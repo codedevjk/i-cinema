@@ -1,0 +1,100 @@
+<div class="movie-details-page" *ngIf="movie">
+  
+  <!-- Hero Banner -->
+  <div class="hero-section">
+    <div class="hero-bg-container">
+      <img [src]="movie.imageUrl || 'assets/placeholder.jpg'" [alt]="movie.title" class="hero-bg-image"
+           onerror="this.onerror=null; this.src='assets/placeholder.jpg'">
+      <div class="hero-overlay"></div>
+    </div>
+
+    <!-- Back Link in Banner -->
+    <div class="back-link-container">
+      <button class="btn btn-link text-white text-decoration-none p-0 d-flex align-items-center hover-white" routerLink="/home">
+        <i class="bi bi-arrow-left me-2 fs-4"></i> Back to Movies
+      </button>
+    </div>
+  </div>
+
+  <!-- Content Section (Overlapping) -->
+  <div class="container content-container">
+    <div class="d-flex flex-column flex-md-row gap-2 gap-md-5">
+      
+      <!-- Floating Poster -->
+      <div class="flex-shrink-0 animate-fade-in">
+        <div class="poster-card">
+          <img [src]="movie.imageUrl || 'assets/placeholder.jpg'" [alt]="movie.title" class="poster-img"
+               onerror="this.onerror=null; this.src='assets/placeholder.jpg'">
+        </div>
+      </div>
+
+      <!-- Details Column -->
+      <div class="flex-grow-1 pt-2 animate-fade-in" style="animation-delay: 0.2s;">
+        
+        <!-- Rating Badge Header -->
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <span class="badge bg-danger rounded-pill px-3 py-2" *ngIf="movie.censorRating">{{ movie.censorRating }}</span>
+          <div class="d-flex align-items-center gap-1 bg-white bg-opacity-10 px-3 py-1 rounded-pill text-warning border border-light border-opacity-10">
+            <i class="bi bi-star-fill small"></i>
+            <span class="fw-bold text-white">{{ movie.rating | number:'1.1-1' }}</span>
+            <span class="text-white-50 small">/10</span>
+            <span class="text-white-50 small ms-2" *ngIf="movie.totalVotes">({{ movie.totalVotes }} votes)</span>
+          </div>
+        </div>
+
+        <!-- Title -->
+        <h1 class="movie-title mb-4">{{ movie.title }}</h1>
+
+        <!-- Metadata Grid -->
+        <div class="d-flex flex-wrap gap-3 mb-5">
+          <div class="info-pill">
+            <i class="bi bi-clock text-danger"></i> {{ movie.durationInMinutes }}m
+          </div>
+          <div class="info-pill">
+            <i class="bi bi-calendar-event text-danger"></i> Available Now
+          </div>
+          <div class="info-pill">
+            <i class="bi bi-translate text-danger"></i> {{ movie.language | titlecase }}
+          </div>
+          <div class="info-pill">
+            <i class="bi bi-film text-danger"></i> {{ movie.genre | titlecase }}
+          </div>
+        </div>
+
+        <!-- Description -->
+        <p class="text-white-50 lead mb-5" style="max-width: 800px;">
+          {{ movie.description }}
+        </p>
+
+        <!-- Book Button -->
+        <button class="btn btn-danger btn-lg px-5 py-3 fw-bold shadow-lg mb-5 rounded-pill" (click)="bookMyShow()">
+          Book My Show
+        </button>
+
+        <!-- Rating Section -->
+        <div class="rating-card mb-5">
+          <h5 class="text-white fw-bold mb-3">Rate this movie</h5>
+          <div class="d-flex gap-3 align-items-center">
+             <input type="number" class="form-control form-control-dark" style="width: 100px;" 
+                    placeholder="1-10" min="1" max="10" step="0.5" 
+                    [(ngModel)]="selectedRating">
+             <button class="btn btn-info fw-bold px-2" (click)="submitRating()" [disabled]="isRatingSubmitting">
+                {{ isRatingSubmitting ? 'Submitting...' : 'Submit Rating' }}
+             </button>
+          </div>
+          <div *ngIf="ratingError" class="text-danger small mt-2">
+            {{ ratingError }}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" [class.show]="showToast">
+    <i class="bi bi-check-circle-fill text-success me-2"></i>
+    <span>{{ toastMessage }}</span>
+  </div>
+
+</div>

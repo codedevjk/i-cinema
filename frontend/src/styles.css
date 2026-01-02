@@ -1,0 +1,82 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/* Global Dark Theme */
+body {
+    background-color: #0b0b0b;
+    color: #ffffff;
+    font-family: "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+body::before {
+    /* Removed global background as per request */
+    content: none;
+}
+
+/* Ensure footer stays at bottom */
+footer {
+    margin-top: auto;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #e50914;
+    border-color: #e50914;
+}
+
+.btn-primary:hover {
+    background-color: #bf0811;
+    border-color: #bf0811;
+}
+
+/* Cards */
+.card {
+    background-color: #121212;
+    border-radius: 12px;
+    border: none;
+}
+
+/* Utility */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+/* Movie Card Hover */
+.movie-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(229, 9, 20, 0.6) !important;
+    /* Red Glow Effect */
+    border-color: #e50914 !important;
+}
+
+.backdrop-blur {
+    backdrop-filter: blur(4px);
+}
+
+/* standardized back button */
+.back-link-container {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    width: auto;
+    z-index: 20;
+    padding: 0;
+}
+
+.hover-white {
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.hover-white:hover {
+    color: #fff !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}

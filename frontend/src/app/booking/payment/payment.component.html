@@ -1,0 +1,150 @@
+<div class="container-fluid min-vh-100 bg-black text-white pt-4 px-0 pb-5 position-relative" *ngIf="booking && !isConfirmed">
+    
+    <div class="back-link-container">
+        <button class="btn btn-link text-white text-decoration-none p-0 d-flex align-items-center hover-white" (click)="goBack()">
+          <i class="bi bi-arrow-left me-2 fs-4"></i> Back to Seat Selection
+        </button>
+    </div>
+
+    <div class="container mt-5 pt-4">
+        <h2 class="fw-bold mb-4">Complete Your Booking</h2>
+
+        <div class="row g-5">
+            <!-- Left Column: Payment Form -->
+            <div class="col-lg-7">
+                <div class="payment-card p-4 mb-4">
+                    <h5 class="mb-4 fw-bold">Payment Method</h5>
+                    
+                    <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+                        
+                        <!-- Card Type Radio -->
+                        <div class="d-flex gap-4 mb-4">
+                            <div class="form-check custom-radio">
+                                <input class="form-check-input" type="radio" formControlName="cardType" [value]="'CREDIT'" id="credit">
+                                <label class="form-check-label" for="credit">
+                                    <i class="bi bi-credit-card me-2"></i> Credit Card <span class="text-success small ms-1">(10% off)</span>
+                                </label>
+                            </div>
+                            <div class="form-check custom-radio">
+                                <input class="form-check-input" type="radio" formControlName="cardType" [value]="'DEBIT'" id="debit">
+                                <label class="form-check-label" for="debit">
+                                    <i class="bi bi-wallet2 me-2"></i> Debit Card <span class="text-success small ms-1">(5% off)</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Card Number -->
+                        <div class="mb-4">
+                            <label class="form-label text-secondary small">Card Number</label>
+                            <input type="text" class="form-control bg-dark border-dark text-white p-3" 
+                                   formControlName="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19"
+                                   (input)="onCardNumberInput($event)">
+                        </div>
+
+                        <!-- Expiry & CVV -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small">Expiry Date</label>
+                                <input type="text" class="form-control bg-dark border-dark text-white p-3" 
+                                       formControlName="expiryDate" placeholder="MM/YY" maxlength="5">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label text-secondary small">CVV</label>
+                                <input type="password" class="form-control bg-dark border-dark text-white p-3" 
+                                       formControlName="cvv" placeholder="•••" maxlength="3">
+                            </div>
+                        </div>
+
+                        <div class="text-secondary small d-flex align-items-center mb-0">
+                            <i class="bi bi-shield-check text-success me-2 fs-5"></i> 
+                            Your payment is secure and encrypted
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Column: Booking Summary -->
+            <div class="col-lg-5">
+                <div class="summary-card p-4">
+                    <h5 class="mb-4 fw-bold">Booking Summary</h5>
+
+                    <!-- Movie Info -->
+                    <div class="d-flex gap-3 mb-4 pb-4 border-bottom border-dark">
+                         <!-- Fallback poster or generic icon -->
+                         <div class="rounded bg-secondary d-flex align-items-center justify-content-center" style="width: 60px; height: 90px;">
+                            <i class="bi bi-film fs-1 text-dark"></i>
+                         </div>
+                        <div>
+                            <h6 class="fw-bold mb-1">Movie Booking</h6> 
+                            <div class="text-secondary small">Booking #{{ bookingId }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Price Breakdown -->
+                    <div class="space-y-3">
+                        <div class="d-flex justify-content-between text-secondary small mb-2">
+                            <span>Ticket Price</span>
+                            <span class="text-white">₹{{ ticketPrice | number:'1.0-0' }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-secondary small mb-2">
+                            <span>Convenience Fee</span>
+                            <span class="text-white">₹{{ convenienceFee | number:'1.0-0' }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between text-secondary small mb-2">
+                            <span>GST (18%)</span>
+                            <span class="text-white">₹{{ gst | number:'1.0-0' }}</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between text-success small mb-3">
+                            <span>Discount ({{ paymentForm.get('cardType')?.value === 'CREDIT' ? '10%' : '5%' }})</span>
+                            <span>-₹{{ discountAmount | number:'1.0-0' }}</span>
+                        </div>
+
+                        <hr class="border-dark my-3">
+
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <span class="fw-bold">Total Amount</span>
+                            <span class="fs-2 fw-bold text-danger">₹{{ finalAmount | number:'1.0-0' }}</span>
+                        </div>
+
+                        <button class="btn btn-pay w-100 py-3 fw-bold fs-5 d-flex align-items-center justify-content-center" 
+                                (click)="onSubmit()" 
+                                [disabled]="isProcessing">
+                             <span *ngIf="isProcessing" class="spinner-border spinner-border-sm me-2"></span>
+                             <span *ngIf="!isProcessing">Pay ₹{{ finalAmount | number:'1.0-0' }}</span>
+                             <span *ngIf="isProcessing">Processing...</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success State -->
+<div class="container-fluid min-vh-100 bg-black d-flex align-items-center justify-content-center text-center" *ngIf="isConfirmed">
+    <div class="animate-scale-in" style="max-width: 400px;">
+        <div class="mb-4">
+             <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem;"></i>
+        </div>
+        <h1 class="text-white fw-bold mb-3">Booking Confirmed!</h1>
+        <p class="text-secondary mb-4">
+            Your tickets have been booked successfully. Enjoy the show!
+        </p>
+
+        <div class="summary-card p-4 mb-4 text-start">
+            <p class="text-secondary small mb-1">Booking ID</p>
+            <p class="text-primary fw-bold font-monospace fs-5">IC{{ bookingId }}</p>
+            
+            <div class="border-top border-dark mt-3 pt-3">
+                 <p class="fw-bold text-white fs-5 text-center mt-2">Total Paid: ₹{{ finalAmount | number:'1.0-0' }}</p>
+            </div>
+        </div>
+
+        <button class="btn btn-pay w-100 py-3" (click)="goHome()">
+            Book More Tickets
+        </button>
+    </div>
+</div>

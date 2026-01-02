@@ -1,0 +1,29 @@
+.booking-card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.booking-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  border-color: rgba(255,255,255,0.2) !important;
+}
+
+.nav-pills .nav-link {
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+
+.nav-pills .nav-link:hover:not(.active) {
+  background: rgba(255,255,255,0.1);
+}
+
+.booking-image-container {
+  min-height: 180px; 
+}
+
+@media (max-width: 576px) {
+  .booking-image-container {
+    height: 150px;
+    width: 100% !important;
+  }
+}
