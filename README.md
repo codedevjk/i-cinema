@@ -126,6 +126,6 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📧 Contact
 
-Your Name - [jagmohan.jk11@gmail.com](mailto:jagmohan.jk11@gmail.com)
+Email - [jagmohan.jk11@gmail.com](mailto:jagmohan.jk11@gmail.com)
 
 Project Link: [https://github.com/codedevjk/i-cinema](https://github.com/codedevjk/i-cinema)
