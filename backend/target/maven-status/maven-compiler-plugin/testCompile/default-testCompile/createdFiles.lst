@@ -1,0 +1,3 @@
+com\icinema\config\DataInitializerTest.class
+com\icinema\service\impl\MovieServiceImplTest.class
+com\icinema\service\impl\ShowServiceImplTest.class
