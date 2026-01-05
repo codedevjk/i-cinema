@@ -12,31 +12,52 @@
 
 ## 🚀 Features
 
-- **User Authentication**: Secure login and registration for users.
-- **Movie Browsing**: users can browse currently showing movies with details.
-- **Real-time Seat Selection**: Interactive seat map to choose preferred seats.
-- **Booking Management**: Book tickets and view booking history.
-- **Admin Dashboard**: Manage movies, theaters, and showtimes (if applicable).
-- **Responsive Design**: Optimized for desktop and mobile devices using Bootstrap.
+| Feature                      | Description                                                |
+| :--------------------------- | :--------------------------------------------------------- |
+| **User Authentication**      | Secure login and registration for users.                   |
+| **Movie Browsing**           | Browse currently showing movies with detailed information. |
+| **Real-time Seat Selection** | Interactive seat map to choose preferred seats.            |
+| **Booking Management**       | Book tickets and view booking history.                     |
+| **Admin Dashboard**          | Manage movies, theaters, and showtimes.                    |
+| **Responsive Design**        | Optimized for desktop and mobile devices using Bootstrap.  |
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Backend
+| Category     | Technology            | Description                              |
+| :----------- | :-------------------- | :--------------------------------------- |
+| **Backend**  | **Java 21**           | Core programming language.               |
+|              | **Spring Boot 3.5.9** | Framework for microservices & REST APIs. |
+|              | **Spring Data JPA**   | ORM and database interaction.            |
+|              | **MySQL**             | Relational database management system.   |
+|              | **Lombok**            | Boilerplate code reduction.              |
+|              | **Maven**             | Build automation tool.                   |
+| **Frontend** | **Angular 15.2.0**    | Component-based web framework.           |
+|              | **Bootstrap 5.3.8**   | Responsive CSS framework.                |
+|              | **TypeScript**        | Typed superset of JavaScript.            |
 
-- **Java 21**: Core programming language.
-- **Spring Boot 3.5.9**: Framework for creating microservices and REST APIs.
-- **Spring Data JPA**: For database interaction and ORM.
-- **MySQL**: Relational database management system.
-- **Lombok**: To reduce boilerplate code.
-- **Maven**: Build automation tool.
+## 📂 Project Structure
 
-### Frontend
-
-- **Angular 15.2.0**: Component-based framework for building scalable web apps.
-- **Bootstrap 5.3.8**: CSS framework for responsive and mobile-first websites.
-- **TypeScript**: Typed superset of JavaScript.
+```bash
+I-Cinema
+├── backend
+│   ├── src
+│   │   ├── main
+│   │   │   ├── java
+│   │   │   │   └── com.icinema
+│   │   │   └── resources
+│   │   │       └── application.properties
+│   │   └── test
+│   └── pom.xml
+└── frontend
+    ├── src
+    │   ├── app
+    │   ├── assets
+    │   └── environments
+    ├── angular.json
+    └── package.json
+```
 
 ---
 
